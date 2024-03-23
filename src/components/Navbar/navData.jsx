@@ -1,18 +1,20 @@
+import { v4 as uuid } from 'uuid'
+
 export const navList = [
     {
-        id: 0,
+        id: uuid(),
         name: "HOME"
     },
     {
-        id: 1,
+        id: uuid(),
         name: 'HIRAGANA'
     },
     {
-        id: 2,
+        id: uuid(),
         name: 'KATAKANA'
     },
     {
-        id: 3,
+        id: uuid(),
         name: 'STUDY'
     }
 ];

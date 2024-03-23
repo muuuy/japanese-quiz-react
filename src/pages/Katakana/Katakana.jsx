@@ -14,7 +14,7 @@ function Katakana() {
                 <div className='centered-div'>
                     <h1 className='header'>Katakana</h1>
                     <p className='description'>
-                        Select the katakana characters you want to study, then click <span><StudyButton /></span>
+                        Select the katakana characters you want to study, then click <span><StudyButton type='STUDY' /></span>
                     </p>
                 </div>
             </div>

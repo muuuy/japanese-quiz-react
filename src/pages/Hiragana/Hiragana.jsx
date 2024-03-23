@@ -14,7 +14,7 @@ function Hiragana() {
                 <div className='centered-div'>
                     <h1 className='header'>Hiragana</h1>
                     <p className='description'>
-                        Select the hiragana characters you want to study, then click <span><StudyButton /></span>
+                        Select the hiragana characters you want to study, then click <span><StudyButton type='STUDY' /></span>
                     </p>
                 </div>
             </div>
