@@ -1,0 +1,26 @@
+.description {
+    font-weight: 700;
+    margin: 8px 0 0 12px;
+    line-height: 1.5;
+}
+
+.shrineImage {
+    width: 40%;
+    object-fit: cover;
+    margin: 8px;
+}
+
+.homeDesc {
+    display: flex;
+    height: 100%;
+}
+
+.leftDesc {
+    width: 60%;
+    height: 100%;
+}
+
+.shrineImage:hover {
+    transform: scale(1.01);
+    transition: transform 0.5s ease;
+}
