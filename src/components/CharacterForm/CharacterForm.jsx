@@ -26,22 +26,22 @@ const CharacterForm = ({type='hiragana'}) => {
     }, [selectedChars])
 
     let popChars = (mapChar) => {
-        return mapChar.map((character) => {
-            let charList = character.characters.split("");
+        return mapChar.map((c) => {
+            let charList = c.characters.split("");
 
             return (
-                <div key={character.id} className='checkbox-container'>
-                    <label key={character.id}>
-                        <div key={character.id} className='para-container'>
-                            {charList.map((c) => {
-                                if(c === '・') {
+                <div key={c.id} className='checkbox-container'>
+                    <label key={c.id}>
+                        <div key={c.id} className='para-container'>
+                            {charList.map((ch) => {
+                                if(ch === '・') {
                                     return <br key={uuid()}></br>
                                 }
-                                return <p key={uuid()}>{c}</p>
+                                return <p key={uuid()}>{ch}</p>
                             })}
                         </div>
 
-                        <input onClick={handleCheckboxChange} type='checkbox' className='char-checkbox' value={character.characters} name='char-checkbox' />
+                        <input onClick={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
                     </label>
                 </div>
             )
