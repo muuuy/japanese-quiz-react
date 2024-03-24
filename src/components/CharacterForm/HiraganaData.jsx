@@ -31,7 +31,7 @@ export const hiraganaChar = [
     },
     {
         id: uuid(),
-        characters: 'やゆよ',
+        characters: 'や・ゆ・よ',
     },
     {
         id: uuid(),
@@ -39,6 +39,6 @@ export const hiraganaChar = [
     },
     {
         id: uuid(),
-        characters: 'わを',
+        characters: 'わ・・・を',
     },
 ];

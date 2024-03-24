@@ -14,9 +14,14 @@ const CharacterForm = ({type='hiragana'}) => {
             return (
                 <div className='checkbox-container'>
                     <label key={character.id}>
-                        {charList.map((c) => (
-                            <p key={uuid()}>{c}</p>
-                        ))}
+                        <div className='para-container'>
+                            {charList.map((c) => {
+                                if(c === '・') {
+                                    return <br></br>
+                                }
+                                return <p key={uuid()}>{c}</p>
+                            })}
+                        </div>
 
                         <input type='checkbox' className='char-checkbox' value={character.characters} />
                     </label>

@@ -17,7 +17,7 @@ const StudyButton = ({type='STUDY'}) => {
 
     return (
         <button className='desc-button' style={{backgroundColor: background}}>
-            <NavLink to='/study' style={{color: "white"}}>{type}</NavLink>
+            <NavLink to={'/' + type.toLowerCase()} style={{color: "white"}}>{type}</NavLink>
         </button>
     )
 }
