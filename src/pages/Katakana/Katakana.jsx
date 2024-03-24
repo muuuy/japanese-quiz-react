@@ -2,6 +2,7 @@ import React from 'react';
 
 import Navbar from '../../components/Navbar/Navbar'
 import StudyButton from '../../components/StudyButton/StudyButton';
+import CharacterForm from '../../components/CharacterForm/CharacterForm';
 
 import '../../App.css';
 
@@ -16,6 +17,7 @@ function Katakana() {
                     <p className='description'>
                         Select the katakana characters you want to study, then click <span><StudyButton type='STUDY' /></span>
                     </p>
+                    <CharacterForm type='katakana'/>
                 </div>
             </div>
         </div>
