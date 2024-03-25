@@ -65,7 +65,7 @@ const CharacterForm = ({formType}) => {
                         </div>
 
                         { //IF ALREADY CHECKED OR NOT
-                            checkedBoxes.includes(c.id) ? ( //!THIS IS CAUSING AN UNCTONROLLED/CONTROLLED ERROR
+                            checkedBoxes.includes(c.id) ? ( //!THIS IS CAUSING AN UNCTONROLLED/CONTROLLED ERROR (SOMETHING w/ CHECKED)
                                 <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' checked />
                             ) : (
                                 <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
