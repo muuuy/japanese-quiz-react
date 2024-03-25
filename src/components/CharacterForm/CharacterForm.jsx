@@ -6,13 +6,22 @@ import { katakanaChar } from './KatakanaData';
 
 const CharacterForm = ({type='hiragana'}) => {
     
-    const [selectedChars, setSelectedChars] = useState([]);
+    let checked = localStorage.getItem('checkedBoxes'); //POPULATE CHECKED BOXES - CONTAINS KEY OF CHECKED BOXES
+    checked === null ? checked = [] : checked = JSON.parse(checked)
+
+
+    const [selectedChars, setSelectedChars] = useState([]); //USE STATE - CHECKBOXES (CHECKED)
+
+    let temp = localStorage.getItem('savedChars'); //GET CHARACTERS FROM LOCAL STORAGE
+    temp = JSON.parse(temp); //TODO: Need to add the localstorage to selectedChars
+
     const handleCheckboxChange = (e) => {
         
         let charList = e.target.value.split("");
         charList = charList.filter((c) => c !== '・');
 
         if(e.target.checked) { //CHECKED
+            checked.push(e.target.key);
             setSelectedChars(selectedChars => [...selectedChars, ...charList]);
         } else { //UNCHECKED
             charList.forEach(c => {
@@ -21,9 +30,11 @@ const CharacterForm = ({type='hiragana'}) => {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { //ADD TO LOCAL STORAGE
         console.table(selectedChars);
-    }, [selectedChars])
+        localStorage.setItem('checkedBoxes', JSON.stringify(checked)); //TODO: Figure out why it isnt saving to local storage
+        localStorage.setItem('savedChars', JSON.stringify(selectedChars));
+    }, [checked, selectedChars])
 
     let popChars = (mapChar) => {
         return mapChar.map((c) => {
@@ -41,7 +52,13 @@ const CharacterForm = ({type='hiragana'}) => {
                             })}
                         </div>
 
-                        <input onClick={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
+                        { //IF ALREADY CHECKED OR NOT
+                            checked !== null && checked.includes(c.id) ? (
+                                <input onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' checked />
+                             ) : (
+                                <input onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
+                             )
+                        }
                     </label>
                 </div>
             )
