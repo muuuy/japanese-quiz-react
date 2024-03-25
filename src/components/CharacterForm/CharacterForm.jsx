@@ -25,7 +25,6 @@ const CharacterForm = ({formType}) => {
         charList = charList.filter((c) => c !== '・');
 
         if(e.target.checked) { //CHECKED
-            // checked.push(key);
             setCheckedBoxes(checkedBoxes => [...checkedBoxes, key])
             setSelectedChars(selectedChars => [...selectedChars, ...charList]);
         } else { //UNCHECKED
@@ -39,13 +38,10 @@ const CharacterForm = ({formType}) => {
     }
 
     useEffect(() => { //ADD TO LOCAL STORAGE
-        // console.table(selectedChars);
-        // console.log("CHECKED:")
-        // console.table(checkedBoxes);
-        localStorage.setItem('savedChars', JSON.stringify(selectedChars)); //!FIXED
+        localStorage.setItem('savedChars', JSON.stringify(selectedChars));
         localStorage.setItem('checkedBoxes', JSON.stringify(checkedBoxes));
-        console.table(JSON.parse(localStorage.getItem('savedChars')))
-        console.table(JSON.parse(localStorage.getItem('checkedBoxes')))
+        // console.table(JSON.parse(localStorage.getItem('savedChars')))
+        // console.table(JSON.parse(localStorage.getItem('checkedBoxes')))
     }, [checkedBoxes, selectedChars])
 
     let popChars = (mapChar) => {
@@ -65,14 +61,12 @@ const CharacterForm = ({formType}) => {
                         </div>
 
                         { //IF ALREADY CHECKED OR NOT
-                            checkedBoxes.includes(c.id) ? ( //!THIS IS CAUSING AN UNCTONROLLED/CONTROLLED ERROR
-                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' checked />
+                            checkedBoxes.includes(c.id) ? (
+                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={true} />
                             ) : (
-                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
+                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={false} />
                             )
                         }
-
-                        {/* <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' /> */}
 
                     </label>
                 </div>

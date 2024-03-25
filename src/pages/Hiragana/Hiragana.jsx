@@ -13,7 +13,7 @@ function Hiragana() {
             <Navbar />
             <div className='main_container'>
                 <div className='centered-div'>
-                    <h1 className='header'>Hiragana</h1>
+                    <h1 className='header' style={{color: "#3a86ff"}}>Hiragana</h1>
                     <p className='description'>
                         Select the hiragana characters you want to study, then click <span><StudyButton type='STUDY' /></span>
                     </p>

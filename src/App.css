@@ -85,7 +85,7 @@
 }
 
 .header {
-    margin: 8px 0 0 12px;
+    margin: 0 0 0 12px;
     color: var(--light-red);
     font-family: "Bungee Inline", sans-serif;
     text-decoration: underline;
