@@ -1,44 +1,42 @@
-import { v4 as uuid } from 'uuid';
-
 export const hiraganaChar = [
     {
-        id: uuid(),
+        id: 'h-1',
         characters: 'あいうえお',
     },
     {
-        id: uuid(),
+        id: 'h-2',
         characters: 'かきくけこ',
     },
     {
-        id: uuid(),
+        id: 'h-3',
         characters: 'さしすせそ',
     },
     {
-        id: uuid(),
+        id: 'h-4',
         characters: 'たちつてと',
     },
     {
-        id: uuid(),
+        id: 'h-5',
         characters: 'なにぬねの',
     },
     {
-        id: uuid(),
+        id: 'h-6',
         characters: 'はひふへほ',
     },
     {
-        id: uuid(),
+        id: 'h-7',
         characters: 'まみむめも',
     },
     {
-        id: uuid(),
+        id: 'h-8',
         characters: 'や・ゆ・よ',
     },
     {
-        id: uuid(),
+        id: 'h-9',
         characters: 'らりるれろ',
     },
     {
-        id: uuid(),
+        id: 'h-10',
         characters: 'わ・・・を',
     },
 ];

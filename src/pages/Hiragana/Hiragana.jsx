@@ -17,7 +17,7 @@ function Hiragana() {
                     <p className='description'>
                         Select the hiragana characters you want to study, then click <span><StudyButton type='STUDY' /></span>
                     </p>
-                    <CharacterForm />
+                    <CharacterForm formType='hiragana' />
                 </div>
             </div>
         </div>

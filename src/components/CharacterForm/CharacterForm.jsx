@@ -4,37 +4,49 @@ import { v4 as uuid } from 'uuid';
 import { hiraganaChar } from './HiraganaData';
 import { katakanaChar } from './KatakanaData';
 
-const CharacterForm = ({type='hiragana'}) => {
+const CharacterForm = ({formType}) => {
     
+    // localStorage.clear();
+
     let checked = localStorage.getItem('checkedBoxes'); //POPULATE CHECKED BOXES - CONTAINS KEY OF CHECKED BOXES
-    checked === null ? checked = [] : checked = JSON.parse(checked)
+    checked = checked ? JSON.parse(checked) : [];
 
-
-    const [selectedChars, setSelectedChars] = useState([]); //USE STATE - CHECKBOXES (CHECKED)
-
-    let temp = localStorage.getItem('savedChars'); //GET CHARACTERS FROM LOCAL STORAGE
-    temp = JSON.parse(temp); //TODO: Need to add the localstorage to selectedChars
+    let saved = localStorage.getItem('savedChars'); //GET CHARACTERS FROM LOCAL STORAGE
+    saved = saved ? JSON.parse(saved) : []
+    
+    const [checkedBoxes, setCheckedBoxes] = useState(checked);
+    const [selectedChars, setSelectedChars] = useState(saved); //USE STATE - CHECKBOXES (CHECKED)
 
     const handleCheckboxChange = (e) => {
         
+        let key = e.target.dataset.key;
+
         let charList = e.target.value.split("");
         charList = charList.filter((c) => c !== '・');
 
         if(e.target.checked) { //CHECKED
-            checked.push(e.target.key);
+            // checked.push(key);
+            setCheckedBoxes(checkedBoxes => [...checkedBoxes, key])
             setSelectedChars(selectedChars => [...selectedChars, ...charList]);
         } else { //UNCHECKED
             charList.forEach(c => {
                 setSelectedChars(selectedChars => selectedChars.filter(ch => ch !== c))
             })
+
+            setCheckedBoxes(checkedBoxes => checkedBoxes.filter(e => e !== key))
         }
+
     }
 
     useEffect(() => { //ADD TO LOCAL STORAGE
-        console.table(selectedChars);
-        localStorage.setItem('checkedBoxes', JSON.stringify(checked)); //TODO: Figure out why it isnt saving to local storage
-        localStorage.setItem('savedChars', JSON.stringify(selectedChars));
-    }, [checked, selectedChars])
+        // console.table(selectedChars);
+        // console.log("CHECKED:")
+        // console.table(checkedBoxes);
+        localStorage.setItem('savedChars', JSON.stringify(selectedChars)); //!FIXED
+        localStorage.setItem('checkedBoxes', JSON.stringify(checkedBoxes));
+        console.table(JSON.parse(localStorage.getItem('savedChars')))
+        console.table(JSON.parse(localStorage.getItem('checkedBoxes')))
+    }, [checkedBoxes, selectedChars])
 
     let popChars = (mapChar) => {
         return mapChar.map((c) => {
@@ -53,19 +65,22 @@ const CharacterForm = ({type='hiragana'}) => {
                         </div>
 
                         { //IF ALREADY CHECKED OR NOT
-                            checked !== null && checked.includes(c.id) ? (
-                                <input onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' checked />
-                             ) : (
-                                <input onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
-                             )
+                            checkedBoxes.includes(c.id) ? (
+                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' checked />
+                            ) : (
+                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' />
+                            )
                         }
+
+                        {/* <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' /> */}
+
                     </label>
                 </div>
             )
         })
     }
 
-    const charactersToMap = type === 'hiragana' ? hiraganaChar : katakanaChar;
+    let charactersToMap = formType === 'hiragana' ? hiraganaChar : katakanaChar;
     
     return (
         <>

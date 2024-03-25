@@ -1,44 +1,42 @@
-import { v4 as uuid } from 'uuid';
-
 export const katakanaChar = [
     {
-        id: uuid(),
+        id: 'k-1',
         characters: 'アイウエオ',
     },
     {
-        id: uuid(),
+        id: 'k-2',
         characters: 'カキクケコ',
     },
     {
-        id: uuid(),
+        id: 'k-3',
         characters: 'サシスセソ',
     },
     {
-        id: uuid(),
+        id: 'k-4',
         characters: 'タチツテト',
     },
     {
-        id: uuid(),
+        id: 'k-5',
         characters: 'ナニヌネノ',
     },
     {
-        id: uuid(),
+        id: 'k-6',
         characters: 'ハヒフヘホ',
     },
     {
-        id: uuid(),
+        id: 'k-7',
         characters: 'マミムメモ',
     },
     {
-        id: uuid(),
+        id: 'k-8',
         characters: 'ヤユヨ',
     },
     {
-        id: uuid(),
+        id: 'k-9',
         characters: 'ラリルレロ',
     },
     {
-        id: uuid(),
+        id: 'k-10',
         characters: 'ワヲ',
     },
 ]
