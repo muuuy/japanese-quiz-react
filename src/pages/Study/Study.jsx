@@ -1,6 +1,7 @@
 //TODO: Create a list of all answers
 
 import React, { useEffect, useState } from 'react';
+import { toRomaji, toHiragana } from 'wanakana'; //CONVERT FROM ROMAJI TO HRIAGANA
 
 import Navbar from '../../components/Navbar/Navbar'
 import StudyButton from '../../components/StudyButton/StudyButton';
@@ -11,22 +12,25 @@ import styles from './Study.module.css';
 function Study() {
     const [curQuestion, setCurQuestion] = useState(''); //* Set current question
     const [userInput, setUserInput] = useState(''); //* User input
-    
-    let charList = localStorage.getItem('savedChars'); //* Get chars from local storage
-    charList = charList ? JSON.parse(charList) : [];
-
-    let visitedList = []; // *Questions that have answered correctly
-    
+    const [charList, setCharList] = useState([]);
+    const [visitedList, setVisitedList] = useState([]);
+        
     useEffect(() => {
+        let chars = localStorage.getItem('savedChars'); //* Get chars from local storage
+        if(chars) { setCharList(JSON.parse(chars)); }
+    }, []);
+
+    useEffect(() => {
+        genRandQuestion();
+    }, [charList]);
+    
+    const genRandQuestion = () => {
         let curIndex = Math.floor(Math.random() * charList.length);
         setCurQuestion(charList[curIndex]);
-    }, []); //!HAVE TO SWITCH [] w/ [visitedList]
-    
-    
+    }
+
     const updateUserInput = (e) => {
         setUserInput(e.target.value);
-        console.log(userInput)
-        console.log('value: ' + e.target.value);
     }
 
     const handleKeyPress = (e) => {
@@ -36,15 +40,22 @@ function Study() {
     }
 
     const checkAnswer = () => { //Check if the user input matches the current question
-        if(userInput === curQuestion.question) {
-            // move to next question
-            //display small message
-            //remove question from original array
-            //add question to new array
+        if(userInput === toRomaji(curQuestion)) { //CORRECT
+            setVisitedList(visitedList => [...visitedList, curQuestion]);
+            setCharList(charList => charList.filter((c) => c !== curQuestion));
+            genRandQuestion();
             console.log('correct');
-        } else {
+        } else { //INCORRECT
             console.log('incorrect');
         }
+    }
+
+    let popAnswers = () => {
+        let ansList = c.answers.split(" ");
+            
+        ansList = ansList.map((a) => (
+            a.includes('.') ? a.split('.') : a
+        ));
     }
 
     return (
