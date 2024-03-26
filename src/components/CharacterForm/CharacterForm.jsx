@@ -58,8 +58,8 @@ const CharacterForm = ({formType}) => {
             let charList = c.characters.split("");
 
             let ansList = c.answers.split(" ");
-            // ansList = ansList.map((a) => a.split('.')); //Multiple answers
-            // console.table(ansList);
+            ansList = ansList.map((a) => a.split('.')); //Multiple answers
+            console.table(ansList);
 
             return (
                 <div key={c.id} className='checkbox-container'>

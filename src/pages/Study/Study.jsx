@@ -20,13 +20,19 @@ function Study() {
     useEffect(() => {
         let curIndex = Math.floor(Math.random() * charList.length);
         setCurQuestion(charList[curIndex]);
-    }, []);
+    }, []); //!HAVE TO SWITCH [] w/ [visitedList]
     
     
     const updateUserInput = (e) => {
         setUserInput(e.target.value);
         console.log(userInput)
         console.log('value: ' + e.target.value);
+    }
+
+    const handleKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            checkAnswer();
+        }
     }
 
     const checkAnswer = () => { //Check if the user input matches the current question
@@ -40,16 +46,6 @@ function Study() {
             console.log('incorrect');
         }
     }
-
-    // const populateQuestion = () => {
-    //     const randIndex = Math.floor(Math.random() * charList.length);
-    //     curQuestion = {
-    //         index: randIndex,
-    //         question: charList[randIndex],
-    //     }
-        
-    //     return curQuestion.question
-    // }
 
     return (
         <>
@@ -65,7 +61,7 @@ function Study() {
                     </p>
                     <div className={styles.studyContainer}>
                         <p className={styles.curQ}>{curQuestion}</p>
-                        <input className={styles.uInput} onChange={updateUserInput} value={userInput} type='text' name='user-input' />
+                        <input className={styles.uInput} onKeyDown={handleKeyPress} onChange={updateUserInput} value={userInput} type='text' name='user-input' />
                     </div>
                 </div>
             </div>
