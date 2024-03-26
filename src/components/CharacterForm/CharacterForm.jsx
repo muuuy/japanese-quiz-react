@@ -1,3 +1,5 @@
+//TODO: I CAN ALSO JUST HAVE A LIST OF ALL ANSWERS IN Study.jsx
+
 import React, { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -13,9 +15,15 @@ const CharacterForm = ({formType}) => {
 
     let saved = localStorage.getItem('savedChars'); //GET CHARACTERS FROM LOCAL STORAGE
     saved = saved ? JSON.parse(saved) : []
+
+    let answers = localStorage.getItem('savedAnswers'); //GET ANSWERS FROM LOCAL STORAGE
+    answers = answers ? JSON.parse(answers) : [];
+
+    let test = [];
     
     const [checkedBoxes, setCheckedBoxes] = useState(checked);
     const [selectedChars, setSelectedChars] = useState(saved); //USE STATE - CHECKBOXES (CHECKED)
+    const [answerList, setAnswerList] = useState(answers);
 
     const handleCheckboxChange = (e) => {
         
@@ -27,6 +35,7 @@ const CharacterForm = ({formType}) => {
         if(e.target.checked) { //CHECKED
             setCheckedBoxes(checkedBoxes => [...checkedBoxes, key])
             setSelectedChars(selectedChars => [...selectedChars, ...charList]);
+            console.log(e.target.dataset.answers[0])
         } else { //UNCHECKED
             charList.forEach(c => {
                 setSelectedChars(selectedChars => selectedChars.filter(ch => ch !== c))
@@ -48,6 +57,10 @@ const CharacterForm = ({formType}) => {
         return mapChar.map((c) => {
             let charList = c.characters.split("");
 
+            let ansList = c.answers.split(" ");
+            // ansList = ansList.map((a) => a.split('.')); //Multiple answers
+            // console.table(ansList);
+
             return (
                 <div key={c.id} className='checkbox-container'>
                     <label key={c.id}>
@@ -62,9 +75,9 @@ const CharacterForm = ({formType}) => {
 
                         { //IF ALREADY CHECKED OR NOT
                             checkedBoxes.includes(c.id) ? (
-                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={true} />
+                                <input data-key={c.id} data-answers={ansList} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={true} />
                             ) : (
-                                <input data-key={c.id} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={false} />
+                                <input data-key={c.id} data-answers={ansList} onChange={handleCheckboxChange} type='checkbox' className='char-checkbox' value={c.characters} name='char-checkbox' defaultChecked={false} />
                             )
                         }
 

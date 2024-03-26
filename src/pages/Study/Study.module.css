@@ -1,0 +1,21 @@
+.studyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    flex: 1;
+    margin: 16px;
+}
+
+.curQ {
+    font-weight: 700;
+    font-size: 80px;
+}
+
+.uInput {
+    height: 24px;
+    text-align: center;
+    border: 1px solid black;
+    font-weight: 900;
+}
