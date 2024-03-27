@@ -1,5 +1,3 @@
-//TODO: CREATE A BUTTON TO REFRESH AFTER FINISHING QUIZ
-
 import React, { useEffect, useState } from 'react';
 import { toRomaji, toHiragana } from 'wanakana'; //CONVERT FROM ROMAJI TO HRIAGANA
 
@@ -15,7 +13,12 @@ function Study() {
     const [charList, setCharList] = useState([]);
     const [visitedList, setVisitedList] = useState([]);
     const [wrongAnswer, setWrongAnswer] = useState(false);
-        
+    const [answerCount, setAnswerCount] = useState(0);
+    const [showAnswer, setShowAnswer] = useState();
+    const [questionStyle, setQuestionStyle] = useState(styles.curQ)
+    
+    const finishedMsg = 'No more characters left in the list. Press ENTER to restart the quiz.';
+
     useEffect(() => {
         let chars = localStorage.getItem('savedChars'); //* Get chars from local storage
         if(chars) { setCharList(JSON.parse(chars)); }
@@ -26,6 +29,14 @@ function Study() {
     }, [charList]);
     
     const genRandQuestion = () => {
+        if(charList.length === 0) {
+            setQuestionStyle(styles.empty);
+            setCurQuestion(finishedMsg);
+            return;
+        }
+        
+        if(questionStyle === styles.empty) { setQuestionStyle(styles.curQ); }
+
         let curIndex = Math.floor(Math.random() * charList.length);
         setCurQuestion(charList[curIndex]);
     }
@@ -37,20 +48,32 @@ function Study() {
     const handleKeyPress = (e) => {
         if(e.key === 'Enter') {
             checkAnswer();
-        }
+        }   
     }
 
     const checkAnswer = () => { //Check if the user input matches the current question
-        if(userInput === toRomaji(curQuestion)) { //CORRECT
+
+        if(userInput === toRomaji(curQuestion) || curQuestion === finishedMsg) { //CORRECT
             setWrongAnswer(false);
             setVisitedList(visitedList => [...visitedList, curQuestion]);
             setCharList(charList => charList.filter((c) => c !== curQuestion));
-            genRandQuestion();
             setUserInput('');
-            console.log('correct');
+            setAnswerCount(0);
+            setShowAnswer()
+
+            if(charList.length === 0) {
+                setCharList([...visitedList]);
+                setVisitedList([]);
+            }            
+
+            genRandQuestion();
         } else { //INCORRECT
             setWrongAnswer(true);
-            console.log('incorrect');
+            if(answerCount === 4) {
+                setShowAnswer(<p className={styles.answer}>{toRomaji(curQuestion)}</p>)
+            } else {
+                setAnswerCount(answerCount => answerCount + 1);
+            }
         }
     }
 
@@ -67,7 +90,8 @@ function Study() {
                         Select the katakana characters you want to study by clicking <span><StudyButton type='KATAKANA' /></span>
                     </p>
                     <div className={styles.studyContainer}>
-                        <p className={styles.curQ}>{curQuestion}</p>
+                        <p className={questionStyle}>{curQuestion}</p>
+                        {showAnswer}
                         <input className={`${styles.uInput} ${wrongAnswer ? styles.wrong : ''}`} onKeyDown={handleKeyPress} onChange={updateUserInput} value={userInput} type='text' name='user-input' />
                     </div>
                 </div>

@@ -19,9 +19,20 @@
     border: 2px solid black;
     outline: none;
     font-weight: 900;
+    margin-top: 12px;
 }
 
 .wrong {
     border: 2px solid red;
     z-index: 1;
+}
+
+.answer {
+    font-family: "Bungee Inline", sans-serif;
+}
+
+.empty {
+    font-size: 16px;
+    color: #2ec4b6;
+    font-family: "Bungee Inline", sans-serif;
 }
