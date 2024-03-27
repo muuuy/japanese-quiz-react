@@ -16,6 +16,12 @@
 .uInput {
     height: 24px;
     text-align: center;
-    border: 1px solid black;
+    border: 2px solid black;
+    outline: none;
     font-weight: 900;
+}
+
+.wrong {
+    border: 2px solid red;
+    z-index: 1;
 }

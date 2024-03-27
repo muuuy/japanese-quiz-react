@@ -1,4 +1,4 @@
-//TODO: Create a list of all answers
+//TODO: CREATE A BUTTON TO REFRESH AFTER FINISHING QUIZ
 
 import React, { useEffect, useState } from 'react';
 import { toRomaji, toHiragana } from 'wanakana'; //CONVERT FROM ROMAJI TO HRIAGANA
@@ -14,6 +14,7 @@ function Study() {
     const [userInput, setUserInput] = useState(''); //* User input
     const [charList, setCharList] = useState([]);
     const [visitedList, setVisitedList] = useState([]);
+    const [wrongAnswer, setWrongAnswer] = useState(false);
         
     useEffect(() => {
         let chars = localStorage.getItem('savedChars'); //* Get chars from local storage
@@ -41,21 +42,16 @@ function Study() {
 
     const checkAnswer = () => { //Check if the user input matches the current question
         if(userInput === toRomaji(curQuestion)) { //CORRECT
+            setWrongAnswer(false);
             setVisitedList(visitedList => [...visitedList, curQuestion]);
             setCharList(charList => charList.filter((c) => c !== curQuestion));
             genRandQuestion();
+            setUserInput('');
             console.log('correct');
         } else { //INCORRECT
+            setWrongAnswer(true);
             console.log('incorrect');
         }
-    }
-
-    let popAnswers = () => {
-        let ansList = c.answers.split(" ");
-            
-        ansList = ansList.map((a) => (
-            a.includes('.') ? a.split('.') : a
-        ));
     }
 
     return (
@@ -72,7 +68,7 @@ function Study() {
                     </p>
                     <div className={styles.studyContainer}>
                         <p className={styles.curQ}>{curQuestion}</p>
-                        <input className={styles.uInput} onKeyDown={handleKeyPress} onChange={updateUserInput} value={userInput} type='text' name='user-input' />
+                        <input className={`${styles.uInput} ${wrongAnswer ? styles.wrong : ''}`} onKeyDown={handleKeyPress} onChange={updateUserInput} value={userInput} type='text' name='user-input' />
                     </div>
                 </div>
             </div>
